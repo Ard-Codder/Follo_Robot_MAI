@@ -6,9 +6,9 @@ from PIL import Image
 from io import BytesIO
 from lang_sam import LangSAM
 
-image = "https://static01.nyt.com/images/2020/09/08/well/physed-cycle-walk/physed-cycle-walk-videoSixteenByNineJumbo1600-v2.jpg"
+image = "url.jpg"
 # image = "./image.jpg"
-text_prompt = "bicycle"
+text_prompt = "class"
 
 
 def download_image(url):
