@@ -1,24 +1,21 @@
 import requests
 
-SERVER_URL = "http://localhost:8000"
+SERVER_URL = "http://localhost:5000"
 
-def send_message(content: str):
-    response = requests.post(f"{SERVER_URL}/send_message/", json={"content": content})
+def send_message(message):
+    response = requests.post(f"{SERVER_URL}/send_message", json={"message": message})
     if response.status_code == 200:
-        print("Message sent successfully")
+        print("Сообщение успешно отправлено.")
     else:
-        print("Failed to send message")
+        print("Ошибка при отправке сообщения:", response.text)
 
-def get_messages():
-    response = requests.get(f"{SERVER_URL}/get_messages/")
+def get_message():
+    response = requests.get(f"{SERVER_URL}/get_message")
     if response.status_code == 200:
-        return response.json()
+        return response.json()["message"]
     else:
-        print("Failed to get messages")
-        return []
+        print("Ошибка при получении сообщения:", response.text)
+        return None
 
-if __name__ == "__main__":
-    send_message("Hello, server!")
-    messages = get_messages()
-    for message in messages:
-        print(message["content"])
+send_message('Hellow')
+get_message()

@@ -1,21 +1,22 @@
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-from typing import List
+from flask import Flask, request, jsonify
 
-app = FastAPI()
+app = Flask(__name__)
 
-class Message(BaseModel):
-    content: str
+messages = []
 
-messages: List[Message] = []
-
-@app.post("/send_message/")
-async def send_message(message: Message):
+@app.route("/send_message", methods=["POST"])
+def send_message():
+    message = request.json["message"]
     messages.append(message)
-    return {"status": "success"}
+    print(message)
+    return jsonify({"status": "success"}), 200
 
-@app.get("/get_messages/")
-async def get_messages():
-    if not messages:
-        raise HTTPException(status_code=404, detail="No messages found")
-    return messages
+@app.route("/get_message", methods=["GET"])
+def get_message():
+    if messages:
+        return jsonify({"message": messages.pop(0)})
+    else:
+        return jsonify({"message": "Нет новых сообщений."})
+
+if __name__ == "__main__":
+    app.run(debug=True)
