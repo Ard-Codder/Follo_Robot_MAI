@@ -18,7 +18,7 @@ try:
     while amount_received < amount_expected:
         data = sock.recv(1024)
         amount_received += len(data)
-        print('Received "%s"' % data)
+        print('Received "%s"' % data.decode('utf-8'))
 finally:
     # Закрываем соединение
     sock.close()
