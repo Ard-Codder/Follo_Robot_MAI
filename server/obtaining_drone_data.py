@@ -1,8 +1,7 @@
-import tornado.ioloop
-import tornado.web
 import tornado.websocket
 
 clients = []
+
 
 class WebSocketHandler(tornado.websocket.WebSocketHandler):
     def open(self):

@@ -1,10 +1,14 @@
 import tornado
 from obtaining_drone_data import WebSocketHandler
+from NotFoundHandler import NotFoundHandler
+
 
 def make_app():
     return tornado.web.Application([
         (r"/obtaining_drone_data", WebSocketHandler),
+        (r"/.*", NotFoundHandler),
     ])
+
 
 if __name__ == "__main__":
     app = make_app()
