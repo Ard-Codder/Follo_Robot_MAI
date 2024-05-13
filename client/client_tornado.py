@@ -6,11 +6,7 @@ class WebSocketClient:
         self.ws = None
 
     async def connect(self):
-<<<<<<< HEAD
         self.ws = await tornado.websocket.websocket_connect("ws://localhost:8888/obtaining_drone_data")
-=======
-        self.ws = await tornado.websocket.websocket_connect("ws://localhost:8888/websocket")
->>>>>>> origin/main
         print("Connected to server")
 
     async def send_data(self, data):
