@@ -2,13 +2,13 @@ import tornado.ioloop
 import tornado.websocket
 
 
-class WebSocketClient:
+class WebSocketClient():
     def __init__(self):
         self.ws = None
 
-    async def connect(self):
+    async def connect(self, ws_address):
         try:
-            self.ws = await tornado.websocket.websocket_connect("ws://localhost:8888/obtaining_drone_data")
+            self.ws = await tornado.websocket.websocket_connect(ws_address)
             print("Connected to server")
         except tornado.httpclient.HTTPClientError as e:
             print("Error connecting to the server:", e)
@@ -24,16 +24,3 @@ class WebSocketClient:
             if msg is None:
                 break
             print("Received data from server:", msg)
-
-
-if __name__ == "__main__":
-    client = WebSocketClient()
-
-
-    async def main():
-        await client.connect()
-        await client.send_data("Hello, server!")
-        await client.receive_data()
-
-
-    tornado.ioloop.IOLoop.current().run_sync(main)
