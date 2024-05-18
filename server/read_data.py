@@ -14,12 +14,12 @@ def read_data():
             for data in csv_reader:
                 print(data)  # Выводим каждую строку
 
-            print(f"Data read from file: {data}")
+            #print(f"Data read from file: {csv_reader}")
             msvcrt.locking(file.fileno(), msvcrt.LK_UNLCK, os.path.getsize(file_path))
     except Exception as e:
         print(f"Error reading data: {e}")
 
 
-for i in range(100000):
-    read_data()
-    time.sleep(0.5)
+
+read_data()
+time.sleep(0.5)
