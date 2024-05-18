@@ -19,8 +19,5 @@ class WebSocketClient():
             print("Sent data to server:", data)
 
     async def receive_data(self):
-        while True:
-            msg = await self.ws.read_message()
-            if msg is None:
-                break
-            print("Received data from server:", msg)
+        msg = await self.ws.read_message()
+        print("Received data from server:", msg)
