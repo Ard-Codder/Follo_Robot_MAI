@@ -1,4 +1,5 @@
 import RPi.GPIO as GPIO
+import time
 
 
 class AlphaBot(object):
@@ -23,35 +24,46 @@ class AlphaBot(object):
         GPIO.output(self.IN2, GPIO.LOW)
         GPIO.output(self.IN3, GPIO.LOW)
         GPIO.output(self.IN4, GPIO.HIGH)
+        print('forward')
 
     def stop(self):
         GPIO.output(self.IN1, GPIO.LOW)
         GPIO.output(self.IN2, GPIO.LOW)
         GPIO.output(self.IN3, GPIO.LOW)
         GPIO.output(self.IN4, GPIO.LOW)
+        print('stop')
 
     def backward(self):
         GPIO.output(self.IN1, GPIO.LOW)
         GPIO.output(self.IN2, GPIO.HIGH)
         GPIO.output(self.IN3, GPIO.HIGH)
         GPIO.output(self.IN4, GPIO.LOW)
+        print('forward')
 
     def left(self):
         GPIO.output(self.IN1, GPIO.LOW)
         GPIO.output(self.IN2, GPIO.LOW)
         GPIO.output(self.IN3, GPIO.LOW)
         GPIO.output(self.IN4, GPIO.HIGH)
+        print('left')
 
     def right(self):
         GPIO.output(self.IN1, GPIO.HIGH)
         GPIO.output(self.IN2, GPIO.LOW)
         GPIO.output(self.IN3, GPIO.LOW)
         GPIO.output(self.IN4, GPIO.LOW)
+        print('right')
 
 
 bot = AlphaBot()
 bot.forward()
+sleep(5)
 bot.stop()
+sleep(5)
 bot.backward()
+sleep(5)
 bot.left()
+sleep(5)
 bot.right()
+sleep(5)
+print('Done')
