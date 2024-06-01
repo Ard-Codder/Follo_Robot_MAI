@@ -1,10 +1,11 @@
+import yolov5
 import cv2
 import numpy as np
 from AlphaBot import AlphaBot
 import torch
-import yolov5.models as models
+from yolov5.models.experimental import attempt_load
 from yolov5.utils.general import non_max_suppression
-from yolov5.utils.datasets import letterbox
+from yolov5.utils.augmentations import letterbox
 
 # Инициализация робота
 robot = AlphaBot()
@@ -12,11 +13,13 @@ robot = AlphaBot()
 # Инициализация камеры
 cap = cv2.VideoCapture(0)
 
-# Загрузка предобученной модели Yolo v5
-model = models.yolov5s()
-model.eval()
+# Определение устройства для вычислений (GPU или CPU)
 device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-model = model.to(device)
+
+# Загрузка предобученной модели Yolo v5
+model_path = 'yolov5n.pt'  # Укажите путь к файлу модели
+model = attempt_load(model_path)
+model.to(device).eval()
 
 # Определение коэффициентов для преобразования пикселей в углы поворота робота
 x_coeff = 0.01
@@ -33,7 +36,7 @@ while True:
     img = letterbox(frame, new_shape=640)[0]
     img = img[:, :, ::-1].transpose(2, 0, 1)  # BGR to RGB, to 3x416x416
     img = np.ascontiguousarray(img)
-    img = torch.from_numpy(img).to(device)
+    img = torch.from_numpy(img).unsqueeze(0).to(device)
     img = img.float()  # uint8 to fp16/32
     img /= 255.0  # 0 - 255 to 0.0 - 1.0
 
